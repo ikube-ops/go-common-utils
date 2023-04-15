@@ -175,7 +175,7 @@ func getLogLevel(level string) zapcore.Level {
 func (e *Encoder) Dir() string {
 	dir := filepath.Dir(e.FilePath)
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		if err := os.MkdirAll(dir, 0644); err != nil {
+		if err := os.MkdirAll(dir, 0755); err != nil {
 			panic(err)
 		}
 	}
