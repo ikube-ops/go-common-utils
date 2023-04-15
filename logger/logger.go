@@ -35,7 +35,7 @@ func storeLogger(l *coreLogger) {
 }
 func newLogger(rootLogger *zap.Logger, selector string, options ...LogOption) *Logger {
 	log := rootLogger.
-		WithOptions(zap.AddCallerSkip(1)).
+		WithOptions().
 		WithOptions(options...).
 		Named(selector)
 	return &Logger{log, log.Sugar()}
@@ -43,7 +43,7 @@ func newLogger(rootLogger *zap.Logger, selector string, options ...LogOption) *L
 
 func newGinLogger(rootLogger *zap.Logger, selector string, options ...LogOption) *Logger {
 	log := rootLogger.
-		WithOptions(zap.AddCallerSkip(1)).
+		WithOptions().
 		WithOptions(options...).
 		Named(selector)
 	return &Logger{log, log.Sugar()}
@@ -55,7 +55,7 @@ func NewLogger(e *Encoder) error {
 	storeLogger(&coreLogger{
 		rootLogger:   logger,
 		logger:       newLogger(logger, ""),
-		globalLogger: logger.WithOptions(zap.AddCallerSkip(1)),
+		globalLogger: logger.WithOptions(),
 		webLogger:    newGinLogger(webLogger, ""),
 		atom:         atom,
 	})
@@ -258,7 +258,7 @@ func globalLogger() *zap.Logger {
 func (l *Logger) Recover(msg string) {
 	if r := recover(); r != nil {
 		msg := fmt.Sprintf("%s. Recovering, but please report this.", msg)
-		globalLogger().WithOptions(zap.AddCallerSkip(1)).
+		globalLogger().WithOptions().
 			Error(msg, zap.Any("panic", r), zap.Stack("stack"))
 	}
 }
