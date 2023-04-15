@@ -37,13 +37,13 @@ func (e *Encoder) logger() *zap.Logger {
 		zap.NewDevelopmentEncoderConfig()
 		cores = zapcore.NewCore(
 			zapcore.NewJSONEncoder(e.getEncoder()),
-			e.getWriteSyncer(filepath.Join(e.Dir(), LogName)),
+			e.getWriteSyncer(filepath.Join(getDirPath(e.FilePath), LogName)),
 			getLogLevel(e.Level),
 		)
 	} else {
 		cores = zapcore.NewCore(
 			zapcore.NewConsoleEncoder(e.getEncoder()),
-			e.getWriteSyncer(filepath.Join(e.Dir(), LogName)),
+			e.getWriteSyncer(filepath.Join(getDirPath(e.FilePath), LogName)),
 			getLogLevel(e.Level),
 		)
 	}
@@ -75,13 +75,13 @@ func (e *Encoder) webLogger() *zap.Logger {
 		zap.NewDevelopmentEncoderConfig()
 		cores = zapcore.NewCore(
 			zapcore.NewJSONEncoder(e.getEncoder()),
-			e.getWriteSyncer(filepath.Join(e.Dir(), "web.log")),
+			e.getWriteSyncer(filepath.Join(getDirPath(e.FilePath), "web.log")),
 			getLogLevel(e.Level),
 		)
 	} else {
 		cores = zapcore.NewCore(
 			zapcore.NewConsoleEncoder(e.getEncoder()),
-			e.getWriteSyncer(filepath.Join(e.Dir(), "web.log")),
+			e.getWriteSyncer(filepath.Join(getDirPath(e.FilePath), "web.log")),
 			getLogLevel(e.Level),
 		)
 	}
@@ -172,13 +172,6 @@ func getLogLevel(level string) zapcore.Level {
 	}
 }
 
-func (e *Encoder) Dir() string {
-	dir := filepath.Dir(e.FilePath)
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		if err := os.MkdirAll(dir, 0755); err != nil {
-			panic(err)
-		}
-	}
-
-	return dir
+func getDirPath(filePath string) string {
+	return filepath.Dir(filePath)
 }
