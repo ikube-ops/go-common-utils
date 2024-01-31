@@ -1,4 +1,4 @@
-module github.com/pgoops/automate
+module github.com/ikube-ops/go-common-utils
 
 go 1.20
 

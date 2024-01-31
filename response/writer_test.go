@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pgoops/automate/response"
+	"github.com/ikube-ops/go-common-utils/response"
 	"github.com/stretchr/testify/require"
 )
 

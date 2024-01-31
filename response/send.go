@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/pgoops/automate/exception"
+	"github.com/ikube-ops/go-common-utils/exception"
 )
 
 // Failed use to response error messge

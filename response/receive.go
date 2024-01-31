@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/pgoops/automate/exception"
+	"github.com/ikube-ops/go-common-utils/exception"
 )
 
 // GetDataFromBody 获取body中的数据

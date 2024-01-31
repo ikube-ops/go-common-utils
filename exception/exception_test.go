@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/pgoops/automate/exception"
+	"github.com/ikube-ops/go-common-utils/exception"
 )
 
 func TestNewNotFound(t *testing.T) {
